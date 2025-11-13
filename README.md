@@ -10,5 +10,5 @@ Principais funcionalidades:
 Interface gráfica interativa criada com Tkinter
 Animação visual da roleta antes de exibir o resultado
 Sistema de probabilidade personalizada para cada fruta
-Mensagens dinâmicas de resultado (jackpot, vitória parcial ou derrota)
+Mensagens de resultado (jackpot, vitória parcial ou derrota)
 Estrutura modular com classes bem definidas (Frutas, Roleta, Cassino e GUI)
