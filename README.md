@@ -12,3 +12,5 @@ Animação visual da roleta antes de exibir o resultado
 Sistema de probabilidade personalizada para cada fruta
 Mensagens de resultado (jackpot, vitória parcial ou derrota)
 Estrutura modular com classes bem definidas (Frutas, Roleta, Cassino e GUI)
+
+Versão do TKinter - 8.6
