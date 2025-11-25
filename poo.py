@@ -1,6 +1,7 @@
 import random
 import time
 import tkinter as tk
+import winsound   # ← IMPORT DO SOM
 
 
 # -------------------------------
@@ -40,13 +41,13 @@ class Cassino:
 
     def verificar_resultado(self, roleta):
         if roleta[0].nome == roleta[1].nome == roleta[2].nome:
-            return "🍀 JACKPOT! Três iguais! Você ganhou o prêmio máximo!"
+            return "JACKPOT"
         elif (roleta[0].nome == roleta[1].nome or
               roleta[1].nome == roleta[2].nome or
               roleta[0].nome == roleta[2].nome):
-            return "✨ Duas frutas iguais! Você ganhou um prêmio menor!"
+            return "PAR"
         else:
-            return "💀 Nenhuma combinação... azar, tenta de novo!"
+            return "NADA"
 
 
 # -------------------------------
@@ -83,6 +84,7 @@ class CassinoGUI:
         self.roleta_label.pack(pady=40)
 
         # Botão de girar
+        # O command=self.jogar está correto, pois 'jogar' é definido logo abaixo
         self.botao_girar = tk.Button(root, text="GIRAR 🎲", command=self.jogar,
                                      font=("Arial", 16, "bold"), bg="gold", fg="black",
                                      activebackground="#ffcc00", padx=20, pady=10)
@@ -93,21 +95,61 @@ class CassinoGUI:
                                         fg="white", bg="#222")
         self.resultado_label.pack(pady=20)
 
+    # ------------------------------------
+    # FUNÇÕES PARA TOCAR OS SONS
+    # ------------------------------------
+    def som_inicio(self):
+        # Toca o som de início do giro
+        winsound.PlaySound("start.wav", winsound.SND_FILENAME)
+
+    def som_vitoria(self):
+        # Toca o som de vitória total (JACKPOT)
+        winsound.PlaySound("win.wav", winsound.SND_FILENAME)
+
+    def som_parcial(self):
+        # Toca o NOVO som de vitória parcial (PAR)
+        winsound.PlaySound("parcial.wav", winsound.SND_FILENAME)
+
+    def som_derrota(self):
+        # Toca o som de derrota
+        winsound.PlaySound("lose.wav", winsound.SND_FILENAME)
+
+    # ------------------------------------
+    # FUNÇÃO DE ANIMAÇÃO
+    # ------------------------------------
     def animar_roleta(self, emojis):
-        """Anima a roleta antes de mostrar o resultado."""
+        self.som_inicio()
+
         for _ in range(5):
             self.roleta_label.config(text=" ".join(random.choices(["🍋", "🍉", "🍒"], k=3)))
             self.root.update()
             time.sleep(0.1)
+
         self.roleta_label.config(text=" ".join(emojis))
 
+    # ------------------------------------
+    # FUNÇÃO PRINCIPAL DO JOGO
+    # ------------------------------------
     def jogar(self):
         roleta_resultado = self.roleta.girar_roleta()
         emojis = [str(f) for f in roleta_resultado]
-        self.animar_roleta(emojis)
-        resultado = self.roleta.verificar_resultado(roleta_resultado)
-        self.resultado_label.config(text=resultado)
 
+        self.animar_roleta(emojis)
+
+        resultado = self.roleta.verificar_resultado(roleta_resultado)
+
+        # Exibir texto e tocar som correspondente
+        if resultado == "JACKPOT":
+            self.resultado_label.config(text="🍀 JACKPOT! Três iguais! Você ganhou o prêmio máximo!", fg="gold")
+            self.som_vitoria() # Som de vitória total
+
+        elif resultado == "PAR":
+            self.resultado_label.config(text="✨ Duas frutas iguais! Você ganhou um prêmio menor!", fg="yellow")
+            self.som_parcial() # Novo som de vitória parcial
+
+        else:
+            self.resultado_label.config(text="💀 Nenhuma combinação... azar, tenta de novo!", fg="white")
+            self.som_derrota()
 
 # -------------------------------
 # EXECUTAR O JOGO
