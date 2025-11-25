@@ -1,7 +1,7 @@
 import random
 import time
 import tkinter as tk
-import winsound   # ← IMPORT DO SOM
+import winsound
 
 
 # -------------------------------
@@ -84,7 +84,6 @@ class CassinoGUI:
         self.roleta_label.pack(pady=40)
 
         # Botão de girar
-        # O command=self.jogar está correto, pois 'jogar' é definido logo abaixo
         self.botao_girar = tk.Button(root, text="GIRAR 🎲", command=self.jogar,
                                      font=("Arial", 16, "bold"), bg="gold", fg="black",
                                      activebackground="#ffcc00", padx=20, pady=10)
@@ -98,6 +97,7 @@ class CassinoGUI:
     # ------------------------------------
     # FUNÇÕES PARA TOCAR OS SONS
     # ------------------------------------
+    
     def som_inicio(self):
         # Toca o som de início do giro
         winsound.PlaySound("start.wav", winsound.SND_FILENAME)
@@ -107,7 +107,7 @@ class CassinoGUI:
         winsound.PlaySound("win.wav", winsound.SND_FILENAME)
 
     def som_parcial(self):
-        # Toca o NOVO som de vitória parcial (PAR)
+        # Toca o som de vitória parcial (PAR)
         winsound.PlaySound("parcial.wav", winsound.SND_FILENAME)
 
     def som_derrota(self):
@@ -117,6 +117,7 @@ class CassinoGUI:
     # ------------------------------------
     # FUNÇÃO DE ANIMAÇÃO
     # ------------------------------------
+    
     def animar_roleta(self, emojis):
         self.som_inicio()
 
@@ -130,6 +131,7 @@ class CassinoGUI:
     # ------------------------------------
     # FUNÇÃO PRINCIPAL DO JOGO
     # ------------------------------------
+    
     def jogar(self):
         roleta_resultado = self.roleta.girar_roleta()
         emojis = [str(f) for f in roleta_resultado]
@@ -145,11 +147,11 @@ class CassinoGUI:
 
         elif resultado == "PAR":
             self.resultado_label.config(text="✨ Duas frutas iguais! Você ganhou um prêmio menor!", fg="yellow")
-            self.som_parcial() # Novo som de vitória parcial
+            self.som_parcial() # Som de vitória parcial
 
         else:
             self.resultado_label.config(text="💀 Nenhuma combinação... azar, tenta de novo!", fg="white")
-            self.som_derrota()
+            self.som_derrota() # Som de derrota
 
 # -------------------------------
 # EXECUTAR O JOGO
@@ -158,3 +160,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = CassinoGUI(root)
     root.mainloop()
+
