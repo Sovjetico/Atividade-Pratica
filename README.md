@@ -14,3 +14,6 @@ Mensagens de resultado (jackpot, vitória parcial ou derrota)
 Estrutura modular com classes bem definidas (Frutas, Roleta, Cassino e GUI)
 
 Versão do TKinter - 8.6
+
+Baixar os Audios Salvos como parcial, start, lose, win
+Assim voce poderá escutar os audios na hora da roleta
