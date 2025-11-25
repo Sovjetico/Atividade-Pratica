@@ -17,3 +17,4 @@ Versão do TKinter - 8.6
 
 Baixar os Audios Salvos como parcial, start, lose, win
 Assim voce poderá escutar os audios na hora da roleta
+Dica: Diminua seu volume quando for rodar o codigo, o audio de Vitoria é meio alto!!
